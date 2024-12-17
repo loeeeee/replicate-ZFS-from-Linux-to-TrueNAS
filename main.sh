@@ -73,6 +73,14 @@ wake_on_lan() {
     return 0
 }
 
+# Check if the machine is already up
+# if ping -c 1 -W 1 "$ip_address" > /dev/null 2>&1; then
+#     echo "Host $ip_address is already up. Skipping Wake-on-LAN."
+# else
+#     wake_on_lan $wol_mac
+# fi
+
+# Keep it simple by spamming it
 wake_on_lan $wol_mac
 
 # -------------------
