@@ -43,6 +43,31 @@ echo "Environment variables loaded successfully."
 
 source .env/bin/activate
 
-zettarepl run --once $zettarepl_config_path
+parse_array_from_env() {
+    local var_name="$1"
+    local array_name="$2"
+
+    # Check if the variable is set
+    if [[ -z "${!var_name}" ]]; then
+        echo "Warning: Environment variable '$var_name' is not set." >&2
+        return 1 # Indicate failure
+    fi
+
+    local value="${!var_name}"
+
+    # Use IFS to split the string into an array (colon is the *only* delimiter)
+    IFS=":" read -r -a "$array_name" <<< "$value"
+
+    return 0 # Indicate success
+}
+
+if parse_array_from_env zettarepl_config_paths zettarepl_config_path_array; then
+  echo "Parsed array:"
+  for i in "${zettarepl_config_path_array[@]}"; do
+    echo "Replication Config File: $i"
+    zettarepl run --once $i
+  done
+fi
+
 
 exit 0
