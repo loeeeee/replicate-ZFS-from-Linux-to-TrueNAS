@@ -10,7 +10,7 @@ periodic-snapshot-tasks:
     exclude:
       - data/src/garbage
     lifetime: P7D
-    naming-schema: "%Y-%m-%d-%H-%M"
+    naming-schema: "replication-%Y-%m-%d-%H-%M"
     schedule:
       minute: "*"
       hour: "*"
