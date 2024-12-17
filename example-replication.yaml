@@ -11,13 +11,12 @@ periodic-snapshot-tasks:
       - data/src/garbage
     lifetime: P7D
     naming-schema: "%Y-%m-%d-%H-%M"
-    # At 05:39 on Saturday
     schedule:
-      minute: "39"
-      hour: "5"
+      minute: "*"
+      hour: "*"
       day-of-month: "*"
       month: "*"
-      day-of-week: "6"
+      day-of-week: "*"
 
 replication-tasks:
   src:
