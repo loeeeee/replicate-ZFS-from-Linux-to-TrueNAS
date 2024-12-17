@@ -1,3 +1,11 @@
 middleware/
 zettarepl/
 .env/
+
+# Exclude other YAMLs
+*.yaml
+!example-replication.yaml
+
+# Exclude other .env
+*.env
+!example.env
