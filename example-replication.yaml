@@ -25,6 +25,8 @@ replication-tasks:
       type: ssh
       # Linux does not support SSH+NETCAT
       hostname: 192.168.0.187
+      port: 22
+      username: root
       # ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDr4PsBZ02czxPl/Y/WPlUjBUAGO6C0vbnaISGEZZM1pHZ24IqS5mYbf6jnlvS+jaZSmNa34IqwuRUv978mBmrOUdib4yFGzirvM4Oj8gS3H+4BUozOpZLRmz01F1TVSeGwROOuGFCE0XDHsxRiUHazz6YB24tt6pG5UgqxfODlHP6bdUtaXhHzYDXShmXRQ/IhwQcC0cyAxXIbNBw1SzGyn+g3jSeeReJcdpe1IzGMS048uei3bVsnRlXxEWZe0modeDJNMzmZokzcnCqEwcPa1weh2oJyfG+65a/fWkAH4cpDwgx05FieFmqqz8G3zSBEtC4kGk15fb9wo8MMwJGd
       private-key: |
         -----BEGIN RSA PRIVATE KEY-----
