@@ -9,7 +9,7 @@ periodic-snapshot-tasks:
     recursive: true
     exclude:
       - data/src/garbage
-    lifetime: P7D
+    lifetime: P8D
     naming-schema: "replication-%Y-%m-%d-%H-%M"
     schedule:
       minute: "*"
