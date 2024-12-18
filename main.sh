@@ -63,13 +63,6 @@ wake_on_lan() {
         sleep 1 # Wait for 1 second before retrying
     done
 
-    if [[ $? -eq 0 ]]; then
-        echo "Wake-on-LAN packet sent successfully."
-    else
-        echo "Error sending Wake-on-LAN packet." >&2
-        return 1
-    fi
-
     return 0
 }
 
