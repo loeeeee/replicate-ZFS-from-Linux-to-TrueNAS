@@ -15,4 +15,25 @@ The script here is expected to run on Proxmox VE, a Debian based virtualization 
 ### Script: `main.sh`
 
 - Wake up remote server
-- Wait until 
+- Wait until server is booted
+- Handled by zettarepl
+    - Take a snapshot
+    - Send the replication
+- Shutdown the server
+
+### Script: `dep.sh`
+
+- Create Python virtual environment
+- Install zettarepl
+
+### Config Example: `example-replication.yaml`
+
+YAML config is used by zettarepl only.
+
+- Showcase a typical push replication
+
+### Config Example: `example.env`
+
+env config is used by the main bash script only.
+
+- Showcase a typical push replication
