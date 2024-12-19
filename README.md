@@ -105,6 +105,14 @@ ssh-keygen
 ssh-copy-id -i /home/zfs_sync/.ssh/id_rsa.pub root@example.com
 ```
 
+### Test the WoL
+
+It is advised to test the WoL in command line to make sure WoL actually works. Both machine needs to be in one LAN, meaning one can reach another without the evolvement of a [router](https://www.geeksforgeeks.org/difference-between-router-and-switch/). Also, one need to check if WoL is supported and enabled in their BIOS. 
+
+```bash
+wakeonlan 1c:1b:aa:bb:cc:dd
+```
+
 ### Test the replication
 
 ```bash
