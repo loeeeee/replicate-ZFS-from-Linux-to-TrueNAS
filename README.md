@@ -1,7 +1,5 @@
 # Replicate ZFS from Linux to TrueNAS with Wake on LAN
 
-**Work in Progress**
-
 An automation script that does replication from OpenZFS in Linux to TrueNAS
 
 ## Overview
@@ -39,3 +37,82 @@ YAML config is used by zettarepl only.
 env config is used by the main bash script only.
 
 - Showcase a typical push replication
+
+## How to use
+
+### Prepare the machine
+
+Firstly, one needs to make sure their account has permission to use command `zfs`. Typically, `root` user has such privilege, but a guide on the Internet also showcased how to allow non-root user to have access to `zfs` command. In this guide, I would be using a non-sudo user, named `zfs_sync` for the backup task.
+
+Then, one needs to have following components available.
+
+- `git`
+    - for cloning this repo and zettarepl
+- `python3` and `pip`
+    - zettarepl is a Python program
+- crontab
+    - the way we schedule the backup
+- `ssh`
+    - the way things communicate with each other
+- `wakeonlan`
+    - this does Wake on LAN
+
+### Clone the repo
+
+Go to the home directory of the user that one would like to use for replication, which in this case is `zfs_sync`. Clone the repo. 
+
+```bash
+su zfs_sync # Assume one starts as root user
+cd ~
+git clone https://github.com/loeeeee/replicate-ZFS-from-Linux-to-TrueNAS.git
+```
+
+### Install the dependency
+
+The following commands create a Python virtual environment and install zettarepl from the source.
+
+```bash
+cd ~/replicate-ZFS-from-Linux-to-TrueNAS
+./dep.sh
+```
+
+### Configure the `zettarepl`
+
+One first need to duplicate the `example-replication.yaml`, which is used by zettarepl for snapshot and replication task.
+
+```bash
+cp example-replication.yaml replication-data.yaml
+```
+
+Regarding how to modifying the config file, one could find it inside the example replication config file.
+
+### Configure the `main.sh`
+
+One first need to duplicate the `example.env`, which is used by `main.sh` for WoL and shutdown over LAN (fancy name for SSH in and do a `shutdown -p now`).
+
+```bash
+cp example.env 1.env
+```
+
+Fill in the needed information.
+
+### Configure the SSH
+
+The idea here is that `zfs_sync` user can ssh into the backup server without password, so that the script could verify if the remote TrueNAS server is booted up or not. Note that if ssh into TrueNAS as `root` user, one need to change some settings at TrueNAS.
+
+```bash
+ssh-keygen
+ssh-copy-id -i /home/zfs_sync/.ssh/id_rsa.pub root@example.com
+```
+
+### Test the replication
+
+```bash
+./main.sh 1.env
+```
+
+### Setup Crontab
+
+```bash
+crontab -e
+```
