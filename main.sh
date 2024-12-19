@@ -75,7 +75,7 @@ wake_server() {
         echo "Attempt $attempt/$ssh_max_attempt_count: Checking SSH connection to $ssh_user@$ip_address..."
 
         # Attempt SSH connection with timeout
-        timeout "$ssh_timeout" ssh -o StrictHostKeyChecking=no -o ConnectTimeout="$ssh_timeout" "$ssh_user@$ip_address" 'exit 0' > /dev/null 2>&1
+        timeout "$ssh_timeout" ssh -o ConnectTimeout="$ssh_timeout" "$ssh_user@$ip_address" 'exit 0' > /dev/null 2>&1
 
         if [[ $? -eq 0 ]]; then
             echo "SSH connection successful! Host $ip_address is up."
@@ -105,5 +105,23 @@ zettarepl run --once $zettarepl_config_path
 # -------------------
 # Shutdown
 # -------------------
+
+shutdown_remote_host() {
+    echo "Shutting down host $ip_address..."
+    timeout "$ssh_timeout" ssh -o ConnectTimeout="$ssh_timeout" "$ssh_user@$ip_address" "shutdown -p now"
+    if [[ $? -eq 0 ]]; then
+        echo "Shutdown command sent successfully."
+        return 0
+    else
+        echo "Error sending shutdown command." >&2
+        return 1
+    fi
+}
+
+if [[ "$isShutdownRemoteServer" != "true" ]]; then
+    echo "Shutdown flag is not set. Skipping shutdown."
+else
+    shutdown_remote_host
+fi
 
 exit 0
