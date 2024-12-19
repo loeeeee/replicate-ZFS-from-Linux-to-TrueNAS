@@ -118,10 +118,10 @@ shutdown_remote_host() {
     fi
 }
 
-if [[ "$isShutdownRemoteServer" != "true" ]]; then
-    echo "Shutdown flag is not set. Skipping shutdown."
-else
+if [[ "$isShutdownRemoteServer" == "true" ]]; then
     shutdown_remote_host
+else
+    echo "Shutdown flag is not set. Skipping shutdown."
 fi
 
 exit 0
