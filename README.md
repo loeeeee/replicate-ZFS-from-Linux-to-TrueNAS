@@ -12,6 +12,8 @@ The same last snapshot is not easy to achieve when the remote server does not po
 
 The script here is expected to run on Proxmox VE, a Debian based virtualization platform, where ZFS ia a popular choice for its storage backend.
 
+The heavy lifting of the replication task is completed by [**zettarepl**](https://github.com/truenas/zettarepl/tree/master), which is also used in TrueNAS.
+
 ### Script: `main.sh`
 
 - Wake up remote server
