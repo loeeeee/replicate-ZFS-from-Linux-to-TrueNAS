@@ -1,4 +1,4 @@
-# Replicate ZFS from Linux to TrueNAS
+# Replicate ZFS from Linux to TrueNAS with Wake on LAN
 
 **Work in Progress**
 

@@ -66,15 +66,33 @@ wake_on_lan() {
     return 0
 }
 
-# Check if the machine is already up
-# if ping -c 1 -W 1 "$ip_address" > /dev/null 2>&1; then
-#     echo "Host $ip_address is already up. Skipping Wake-on-LAN."
-# else
-#     wake_on_lan $wol_mac
-# fi
-
 # Keep it simple by spamming it
 wake_on_lan $wol_mac
+
+wake_server() {
+    local attempt=1
+    while [[ $attempt -le $ssh_max_attempt_count ]]; do
+        echo "Attempt $attempt/$ssh_max_attempt_count: Checking SSH connection to $ssh_user@$ip_address..."
+
+        # Attempt SSH connection with timeout
+        timeout "$ssh_timeout" ssh -o StrictHostKeyChecking=no -o ConnectTimeout="$ssh_timeout" "$ssh_user@$ip_address" 'exit 0' > /dev/null 2>&1
+
+        if [[ $? -eq 0 ]]; then
+            echo "SSH connection successful! Host $ip_address is up."
+            return 0 # Success
+        else
+            echo "SSH connection failed. Sending Wake-on-LAN packet..."
+            wake_on_lan $wol_mac
+            sleep 5 # Wait a few seconds before next SSH attempt
+        fi
+        attempt=$((attempt + 1))
+    done
+
+    echo "Failed to establish SSH connection to $ip_address after $max_attempts attempts." >&2
+    return 1 # Failure
+}
+
+wake_server
 
 # -------------------
 # Replication
@@ -87,7 +105,5 @@ zettarepl run --once $zettarepl_config_path
 # -------------------
 # Shutdown
 # -------------------
-
-
 
 exit 0
