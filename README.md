@@ -42,7 +42,7 @@ env config is used by the main bash script only.
 
 ### Prepare the machine
 
-Firstly, one needs to make sure their account has permission to use command `zfs`. Typically, `root` user has such privilege, but a guide on the Internet also showcased how to allow non-root user to have access to `zfs` command. In this guide, I would be using a non-sudo user, named `zfs_sync` for the backup task.
+Firstly, one needs to make sure their account has permission to use command `zfs`. Typically, `root` user has such privilege, but a [guide](https://vaarlion.com/blog/zfs-replication-from-truenas-to-linux/) on the Internet also showcased how to allow non-root user to have access to `zfs` command. In this guide, I would be using a non-sudo user, named `zfs_sync` for the backup task.
 
 Then, one needs to have following components available.
 
