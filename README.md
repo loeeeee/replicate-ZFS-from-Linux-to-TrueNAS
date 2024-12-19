@@ -1,6 +1,11 @@
 # Replicate ZFS from Linux to TrueNAS with Wake on LAN
 
-An automation script that does replication from OpenZFS in Linux to TrueNAS
+This repo make it easy to do periodic replication of ZFS from Proxmox to a remote TrueNAS system.
+
+- Easy Wake on LAN (WoL),
+- Shutdown after finish,
+- Same zettarepl as TrueNAS, and
+- Easy configuration.
 
 ## Overview
 
