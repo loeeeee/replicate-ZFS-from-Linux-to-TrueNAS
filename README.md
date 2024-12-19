@@ -14,4 +14,5 @@ The script here is expected to run on Proxmox VE, a Debian based virtualization 
 
 ### Script: `main.sh`
 
-This script works in Linux server. It wakes up the server using WoL, a standard that gets ubiquitous support in all platform. Then, it will take the latest snapshot of the file system. Finally, it will wait until the backup server to fully boot up and starts sending the datasets.
+- Wake up remote server
+- Wait until 

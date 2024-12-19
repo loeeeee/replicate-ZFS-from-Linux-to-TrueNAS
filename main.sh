@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -xeuo pipefail # Make people's life easier
+# set -xeuo pipefail # Make people's life easier
 
 # -------------------
 # Load env file
