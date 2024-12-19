@@ -6,11 +6,16 @@ timezone: "Asia/Bangkok"
 periodic-snapshot-tasks:
   src:
     dataset: data/src
+    # [recursive explained](https://www.truenas.com/community/threads/recursive-snapshots.39420/)
     recursive: true
+    # This excludes dataset, not folders
     exclude:
       - data/src/garbage
+    # Lifetime defaults to 8 days, because doing a backup on remote server every 7 days seems to be a reasonable choice, and one additional day helps when replication take very long.
     lifetime: P8D
+    # Naming Schema needs to have all five things, %Y %m %d %H %M to avoid confusing the zettarepl. Besides that, name it whatever you want. 
     naming-schema: "replication-%Y-%m-%d-%H-%M"
+    # Because the backup is going to be handled by external crontab not the zettarepl, and it is executed with "--once" flag, we need to set this as every minutes.
     schedule:
       minute: "*"
       hour: "*"
@@ -20,14 +25,18 @@ periodic-snapshot-tasks:
 
 replication-tasks:
   src:
+    # Send to remote
     direction: push
     transport:
-      type: ssh
       # Linux does not support SSH+NETCAT
+      type: ssh
+      # IP or Hostname
       hostname: 192.168.0.187
+      # SSH port
       port: 22
       username: root
       # ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDr4PsBZ02czxPl/Y/WPlUjBUAGO6C0vbnaISGEZZM1pHZ24IqS5mYbf6jnlvS+jaZSmNa34IqwuRUv978mBmrOUdib4yFGzirvM4Oj8gS3H+4BUozOpZLRmz01F1TVSeGwROOuGFCE0XDHsxRiUHazz6YB24tt6pG5UgqxfODlHP6bdUtaXhHzYDXShmXRQ/IhwQcC0cyAxXIbNBw1SzGyn+g3jSeeReJcdpe1IzGMS048uei3bVsnRlXxEWZe0modeDJNMzmZokzcnCqEwcPa1weh2oJyfG+65a/fWkAH4cpDwgx05FieFmqqz8G3zSBEtC4kGk15fb9wo8MMwJGd
+      # This is typically at /home/[user]/.ssh/id_rsa or /root/.ssh/id_rsa
       private-key: |
         -----BEGIN RSA PRIVATE KEY-----
         MIIEowIBAAKCAQEA6+D7AWdNnM8T5f2P1j5VIwVABjugtL252iEhhGWTNaR2duCK
@@ -56,15 +65,20 @@ replication-tasks:
         LdZpyjWzzmb0Z4kjEYcrlGdbNQf9iaT0r+SJPzwBDG15+fRqK7EJI00UhjB0T67M
         otrkElxOBGqHSOl0jfUBrpSkSHiy0kDc3/cTAWKn0gowaznSlR9N
         -----END RSA PRIVATE KEY-----
+      # This is typically at /home/[user]/.ssh/known_hosts or /root/.ssh/known_hosts
       host-key: "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEg6bOfeVvexN5JgzlKVzM/2NgD6qNpeq9aF396qDiJR56bAx8ru2F0+fnrLnDywW1mYI0jxjbdofSjh0BYDWkM="
+    # Restate what you would like to copy
     source-dataset: data/src
+    # The place the data going to be in in remote server
     target-dataset: data/dst
     recursive: true
     exclude:
       - data/src/garbage
+    # What snapshot task this replication job is related to
     periodic-snapshot-tasks:
       - src
     auto: true
+    # One needs to enable this if they are doing this for the first time, otherwise it is recommended to leave this thing false. Enabling this allow replicate a new dataset from scratch.
     allow-from-scratch: false
     retention-policy: source
     speed-limit: 1024
