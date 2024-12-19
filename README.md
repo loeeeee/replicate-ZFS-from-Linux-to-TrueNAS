@@ -129,3 +129,9 @@ wakeonlan 1c:1b:aa:bb:cc:dd
 ```bash
 crontab -e
 ```
+
+Example crontab content
+
+```crontab
+39 5 * * 6 /bin/bash /home/zfs_sync/replicate-ZFS-from-Linux-to-TrueNAS/main.sh /home/zfs_sync/replicate-ZFS-from-Linux-to-TrueNAS/1.env
+```
