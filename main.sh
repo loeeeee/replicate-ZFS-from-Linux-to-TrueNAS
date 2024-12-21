@@ -19,7 +19,7 @@ load_env_from_file() {
         return 1
     fi
     set -a
-    . ./"$env_file"
+    . "$env_file" # Not doing ./ because crontab prefer absolute path
     set +a
     return 0
 }
