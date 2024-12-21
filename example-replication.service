@@ -5,6 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
+# One might want to change the following three entries to fit their needs
 WorkingDirectory=/home/zfs_sync/replicate-ZFS-from-Linux-to-TrueNAS/
 User=zfs_sync
 ExecStart=/bin/bash -c "./main.sh example.env"

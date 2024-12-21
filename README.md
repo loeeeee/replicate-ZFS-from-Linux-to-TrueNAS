@@ -124,14 +124,12 @@ wakeonlan 1c:1b:aa:bb:cc:dd
 ./main.sh 1.env
 ```
 
-### Setup Crontab
+### Setup Systemd Service
+
+When setting up systemd, `root` privilege is needed. Configure the service as needed. Should be quite simple.
 
 ```bash
-crontab -e
+cp example-replication.service /etc/systemd/system/zfs-replication-banana.service
+nano /etc/systemd/system/zfs-replication-banana.service
 ```
 
-Example crontab content
-
-```crontab
-39 5 * * 6 /bin/bash /home/zfs_sync/replicate-ZFS-from-Linux-to-TrueNAS/main.sh /home/zfs_sync/replicate-ZFS-from-Linux-to-TrueNAS/1.env
-```

@@ -38,12 +38,6 @@ fi
 echo "Environment variables loaded successfully."
 
 # -------------------
-# Change working directory
-# -------------------
-
-cd $working_dir
-
-# -------------------
 # Wake up remote server
 # -------------------
 
