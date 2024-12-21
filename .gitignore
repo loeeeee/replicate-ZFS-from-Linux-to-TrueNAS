@@ -9,3 +9,6 @@ zettarepl/
 # Exclude other .env
 *.env
 !example.env
+
+# Exclude log files
+*.log
