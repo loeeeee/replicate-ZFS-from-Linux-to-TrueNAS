@@ -1,0 +1,17 @@
+[Unit]
+Description=Example Replication Task
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/zfs_sync/replicate/
+User=zfs_sync
+ExecStart=/bin/bash -c "./main.sh example.env"
+
+[Timer]
+OnCalendar=Sat *-*-* 05:38:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
