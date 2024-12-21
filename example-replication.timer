@@ -1,0 +1,11 @@
+[Unit]
+Description=Example Replication Task
+After=network-online.target
+Wants=network-online.target
+
+[Timer]
+OnCalendar=Sat *-*-* 05:39:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

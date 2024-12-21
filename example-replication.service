@@ -10,9 +10,5 @@ WorkingDirectory=/home/zfs_sync/replicate-ZFS-from-Linux-to-TrueNAS/
 User=zfs_sync
 ExecStart=/bin/bash -c "./main.sh example.env"
 
-[Timer]
-OnCalendar=Sat *-*-* 05:39:00
-Persistent=true
-
 [Install]
 WantedBy=timers.target
