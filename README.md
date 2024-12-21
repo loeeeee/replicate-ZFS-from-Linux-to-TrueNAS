@@ -126,10 +126,12 @@ wakeonlan 1c:1b:aa:bb:cc:dd
 
 ### Setup Systemd Service
 
-When setting up systemd, `root` privilege is needed. Configure the service as needed. Should be quite simple.
+When setting up systemd, `root` privilege is needed. Configure the service as needed. Should be quite simple. Note that the timer needs to have the same file name as the service.
+
+[How to setup a timer](https://wiki.archlinux.org/title/Systemd/Timers)
 
 ```bash
 cp example-replication.service /etc/systemd/system/zfs-replication-banana.service
-nano /etc/systemd/system/zfs-replication-banana.service
+cp example-replication.timer /etc/systemd/system/zfs-replication-banana.timer
 ```
 

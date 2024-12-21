@@ -4,6 +4,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Timer]
+# This is where one control when the replication happens
 OnCalendar=Sat *-*-* 05:39:00
 Persistent=true
 
