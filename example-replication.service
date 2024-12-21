@@ -5,12 +5,12 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-WorkingDirectory=/home/zfs_sync/replicate/
+WorkingDirectory=/home/zfs_sync/replicate-ZFS-from-Linux-to-TrueNAS/
 User=zfs_sync
 ExecStart=/bin/bash -c "./main.sh example.env"
 
 [Timer]
-OnCalendar=Sat *-*-* 05:38:00
+OnCalendar=Sat *-*-* 05:39:00
 Persistent=true
 
 [Install]
